@@ -3,26 +3,24 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 
-# Scraping dynamic content using Selenium
+import houses_db
 
-# Set up the Selenium WebDriver (you need to have the appropriate webdriver installed)
 driver = webdriver.Chrome()  # You can use other webdrivers like Firefox, Edge, etc.
 
-# Navigate to the webpage with dynamically loaded content
 url = "https://www.sreality.cz/hledani/prodej/byty/zahranici"
 driver.get(url)
 
+houses = houses_db.db_handler()
+houses.delete_table()
+houses.create_table()
+
 try:
-    # Wait for the dynamic content to load (adjust the timeout as needed)
     element = WebDriverWait(driver, 1).until(
         EC.presence_of_element_located((By.CSS_SELECTOR, "span.name"))
     )
 
-    # Extract data from the loaded page
     dynamic_content = driver.page_source
 
-    # Now, you can parse and extract information from the dynamic content using a parsing library like BeautifulSoup
-    # Example: Use BeautifulSoup to extract text from an element with class "example-class"
     from bs4 import BeautifulSoup
 
     soup = BeautifulSoup(dynamic_content, 'html.parser')
@@ -37,15 +35,14 @@ try:
         location = property_soup.find("span", {"class": "locality"}).text
         if len(imgs) > 0:
             print(name, location, imgs[0]['src'])
+            houses.insert(name, location, imgs[0]['src'])
+
         else:
             print("No image", name, location)
-
-    # data = soup.find(class_='name')
-
-    print("-----------------------------")
-    print(len(data))
 
 
 finally:
     # Close the browser window when done
     driver.quit()
+
+print(houses.get_rows())
