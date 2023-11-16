@@ -9,7 +9,7 @@ class SrealitySpider(scrapy.Spider):
         urls = [
             "https://www.sreality.cz/hledani/prodej/byty/zahranici",
         ]
-        for i in range(2, 25):
+        for i in range(2, 30):
             urls.append("https://www.sreality.cz/hledani/prodej/byty/zahranici?strana=" + str(i))
 
         for url in urls:

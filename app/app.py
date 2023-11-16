@@ -13,6 +13,7 @@ def scrape_data():
     process.crawl("test")
     process.start()
 
+
 def add_to_db(data):
     db = houses_db.db_handler()
     db.create_table()
@@ -27,11 +28,13 @@ def create_response(data):
     response += "<tr><th>Name</th><th>Location</th><th>Image Url</th></tr>"
 
     for i, row in enumerate(data):
-        response += "<tr>"
-        response += "<td>" + str(i) + "</td>"
-        for cell in row:
-            response += '<td style="border:1px solid black">' + str(cell) + "</td>"
-        response += "</tr>"
+        if i < 500:
+            response += "<tr>"
+            response += "<td>" + str(i) + "</td>"
+            for cell in row:
+                response += '<td style="border:1px solid black">' + str(cell) + "</td>"
+            response += "</tr>"
+
     response += "</table>"
     return response
 
@@ -45,6 +48,7 @@ def main():
 
 if __name__ == '__main__':
     db = houses_db.db_handler()
+    # creating a new database on server startup
     db.delete_table()
     scrape_data()
     app.run(host='0.0.0.0', port=8080)

@@ -16,5 +16,5 @@ class QuotesJsScraperPipeline:
         db.create_table()
         for i in properties:
             db.insert(i[0], i[1], i[2])
-
+        
         return item
