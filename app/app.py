@@ -25,7 +25,7 @@ def create_response(data):
     response = ""
     response += '<h1>Real estate from Sreality</h1>'
     response += '<table style="border:1px solid black">'
-    response += "<tr><th>Name</th><th>Location</th><th>Image Url</th></tr>"
+    response += "<tr><th></th><th>Name</th><th>Location</th><th>Image Url</th></tr>"
 
     for i, row in enumerate(data):
         if i < 500:
