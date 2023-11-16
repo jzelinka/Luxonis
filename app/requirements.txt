@@ -1,1 +1,5 @@
 flask
+psycopg2-binary
+bs4
+scrapy
+scrapy-playwright

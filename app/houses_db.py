@@ -1,16 +1,14 @@
-from typing import Any
 import psycopg2
-
 
 class db_handler:
     def __init__(self) -> None:
         dbname = "postgres"
         user = "postgres"
         password = "postgres"
-        host = "localhost"
+        host = "postgres"
         port = "5432"  # Default PostgreSQL port
 
-        self.create_query = "CREATE TABLE houses (name varchar(100), location varchar(100), image_url varchar(1000));"
+        self.create_query = "CREATE TABLE IF NOT EXISTS houses (name varchar(100), location varchar(100), image_url varchar(1000));"
         self.select_query = "select * from houses;"
         self.insert_query = "insert into houses values (%s, %s, %s);"
         self.delete_query = "DROP TABLE IF EXISTS houses;"
